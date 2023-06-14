@@ -4,10 +4,12 @@ const connection = require("../database/database");
 const Category = connection.define('categories', {
     title: {
         type:Sequelize.STRING,
-        alloNull: false
+        allowNull: false
     }, slug:{
         type:Sequelize.STRING,
         allowNull: false
     }
 })
+
+Category.sync({force: true});
 module.exports= Category;
