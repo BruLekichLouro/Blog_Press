@@ -1,8 +1,13 @@
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
 //view engine
 app.set('view engine', 'ejs');
+
+//Body parser:
+app.use(bodyParser.urlenconded({extends: false}));
+app.use(bodyParser.json());
 
 app.get("/", (req, res)=>{
     res.render("index");
