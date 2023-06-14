@@ -1,0 +1,26 @@
+{
+  "name": "projeto_blog_press",
+  "version": "1.0.0",
+  "description": "Projeto de blog utilizando node.js, MySql, ejs e JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BruLekichLouro/Blog_Press.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BruLekichLouro/Blog_Press/issues"
+  },
+  "homepage": "https://github.com/BruLekichLouro/Blog_Press#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mysql2": "^3.3.5",
+    "sequelize": "^6.32.0"
+  }
+}
