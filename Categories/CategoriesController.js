@@ -13,7 +13,7 @@ router.post('/categories/save', (req, res) => {
             title:title,
             slug:slugify(title)
         }).then(()=>{
-            res.redirect("/");
+            res.redirect("/admin/categories");
         })
     }else{
         res.redirect("/admin/categories/new")
@@ -45,4 +45,22 @@ router.post("/categories/delete", (req, res)=>{
     }
 });
 
-   module.exports= router;
+router.get("/admin/categories/edit/:id", (req, res)=>{
+    var id = req.params.id;// id dos parametros da rota
+    if(isNaN(id)){ // se não for número, redireciona
+        res.redirect("/admin/categories");
+    }
+    //findByPk(): modo rápido de pesquisar algo pelo id
+    Category.findByPk(id).then(category => {
+        if(category != undefined){ //se é nula ou não
+            res.render("admin/categories/edit", {category:category})
+        }else{//null
+            res.redirect("/admin/categories");
+        }
+    }).catch(erro=>{
+        res.redirect("/admin/categories");
+    })
+});
+
+
+module.exports= router;
