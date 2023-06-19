@@ -66,7 +66,7 @@ router.post("/categories/update", (req, res)=>{
     var id= req.body.id;
     var title= req.body.title;
     //Update no model:
-    Category.update({title: title, slug: slugify(title)}, {
+    Category.update({title: title, slug: slugify(titles)}, {
         where:{
             id:id
         }
