@@ -1,9 +1,10 @@
 const express= require('express');
-
 const router = express.Router();
 const Category= require("../categories/Category");
+const Article = require("./Article");//model artigo
+const slugify = require("slugify");
 
-router.get('/articles', (req, res) => {
+router.get('/admin/articles', (req, res) => {
  res.send("Rota de artigos")
 });
 
@@ -12,5 +13,21 @@ router.get('/admin/articles/new', (req, res) => {
         res.render("admin/articles/new", {categories:categories})
     } )
    });
+
+router.post("/articles/save", (req, res)=> {
+    var title = req.body.title;
+    var body = req.body.body;
+    var category = req.body.category; 
+
+    //Chama o modle e usa o c reate():
+    Article.create({
+        title:title,
+        slug:slugify(title),
+        body:body,
+        categoryId: category
+    }).then(()=>{
+        res.redirec('/admin/articles')
+    })
+}); 
 
    module.exports= router;
