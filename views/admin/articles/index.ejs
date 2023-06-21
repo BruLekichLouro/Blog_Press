@@ -1,0 +1,32 @@
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+<div class="container">
+    <hr>
+    <h2>Artigos</h2>
+    <a class="btn btn-success" href="/admin/articles/new">Criar novo artigo </a>
+    <hr>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Título</th>
+                <th>Slug</th>
+                <th>Categoria</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+</div>
+<%- include('../../partials/footer.ejs') %>
+<script>
+    function confirmDeletion(event, form){
+        event.preventDefault(); //evita que form seja submetido
+        var decision = confirm("Você quer mesmo deletar esta categoria?")
+        if(decision){
+            form.submit();
+        }
+    }
+</script>
