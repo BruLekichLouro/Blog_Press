@@ -7,7 +7,7 @@ const slugify = require("slugify");
 router.get('/admin/articles', (req, res) => {
     Article.findAll({
         include:[{model:Category}]
-    }).then(articles =>{
+    }).then(articles =>{        
         res.render("admin/articles/index", {articles:articles});
     })
 });
@@ -57,10 +57,10 @@ router.get("/admin/articles/edit/:id", (req, res)=>{
     var id = req.params.id;
     //procurar o artigo pelo id
     Article.findByPk(id).then( article=>{
-        if(article != undefined){
+        if(article != undefined){ //diferente de nulo
             Category.findAll().then(categories =>{
-                res.render("admin/articles/edit", {categories:categories});
-            })   
+                res.render("admin/articles/edit", {categories:categories, article: article})
+            });   
         }else{
             res.redirect("/");
         }

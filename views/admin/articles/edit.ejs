@@ -1,37 +1,43 @@
 <%- include('../../partials/header.ejs') %>
 <%- include('../../partials/navbar.ejs') %>
-<body>
+
     <div class="container">
-        <br>
         <div class="card">
             <div class="card-header">
-                <h2> Editar artigo:</h2>
+                <h2>Editar artigo:</h2>
             </div>
-           
             <div class="card-body">
-                <form method="POST", action="/articles/save">
-                    <input type="text" class="form-control" name="title" placeholder="Escreva o título do artigo aqui">
-                    <textarea class="form-control" placeholder="Digite seu artigo aqui" name="body" id="article"></textarea>
-                    <label>Selecione a categoria:</label>
+                <form method="POST" action="/articles/save">
+                    <input class="form-control" type="text" name="title" placeholder="Defina o título do artigo" >
+                    <br> 
+                    <textarea class="form-control" placeholder="Escreva o artigo aqui" name="body" id="article"></textarea>
+                    <label>Categoria</label>
                     <select name="category" class="form-control">
-                        <% categories.forEach((category) => { %>
-                            <option value="<%= category.id %> "> <%= category.title %> </option>
-                         <% }) %>   
+                        <% categories.forEach((category)=>{ %>
+                                <option value="<%= category.id %>" selected><%= category.title %></option>
+                        <% }) %>
                     </select>
-                    <br>
-                    <button class="btn btn-success">Atualizar</button>
+                    <br> 
+                    <button class="btn btn-dark" > Atualizar </button>
                 </form>
             </div>
         </div>
     </div>
-</body>
-<%- include('../../partials/footer.ejs')%>
+    <div id="content" style="display:none;">
+        <%- article.body %> 
+    </div>
+
+
+<%- include('../../partials/footer.ejs') %>
+
+<!--Importando tinyMCE: -->
 <script src="/tinymce/tinymce.min.js"></script>
+<!--Configurando tinyMCE: -->
 <script>
     tinymce.init({
-        //language:"pt_BR",
-        selector:"#article",
-        plugins: [
+            language: 'pt_BR',
+                selector: "#article",
+                plugins: [
                     'advlist',
                     'autolink',
                     'link',
@@ -46,6 +52,9 @@
                     'save',
                     'table',
                     'emoticons',
-                ]
-    })
+                ],
+                init_instance_callback: () => {
+                    tinymce.activeEditor.setContent('<%- article.body %>')
+                }
+            })
 </script>
