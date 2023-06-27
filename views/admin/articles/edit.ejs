@@ -14,7 +14,12 @@
                     <label>Categoria</label>
                     <select name="category" class="form-control">
                         <% categories.forEach((category)=>{ %>
+                            <% if(category.id == article.categoryId){ %>
                                 <option value="<%= category.id %>" selected><%= category.title %></option>
+                            <% }else{%>
+                                <option value="<%= category.id %>"><%= category.title %></option>
+                            <% }%>
+                               
                         <% }) %>
                     </select>
                     <br> 
@@ -54,7 +59,7 @@
                     'emoticons',
                 ],
                 init_instance_callback: () => {
-                    tinymce.activeEditor.setContent('<%- article.body %>')
+                    tinymce.activeEditor.setContent('<%- article.body %>'); //será inicializado toda vez que o tiny for cinicializado e vai tornar o conteúdo dentro do tinymce dinâmico
                 }
             })
 </script>
