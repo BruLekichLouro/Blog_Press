@@ -91,17 +91,17 @@ router.get("/articles/page/:num", (req, res)=>{
     var offset = 0;
 
     if(isNaN(page) || page ==1){ //se pág não for núm ou for =1
-        offset=0;
+        offset=0; //pra exibir a partir do primeiro elemento
     }else{
-        offset=parseInt(page)*4;
+        offset = parseInt(page)*4;
     }
 
     Article.findAndCountAll({//traz todos os elementos da tabela e a quantidade/contagem
         limit:4, //limite de dados que eu quero receber
-        offset :offset
+        offset: offset
         
     }).then(articles => {
-
+    //verificar se há mais páginas para serem mostradas; qdo chega na última aparece false
         var next;
         if(offset +4 >= articles.count){
             next = false;
@@ -111,9 +111,12 @@ router.get("/articles/page/:num", (req, res)=>{
         var result = {
             next: next,
             articles:articles,
-
         }
-        res.json(result);//retorna um json com artigos
-    }) 
-})
+        //a homenav está trazendo categorias, preciso trazer tb:
+        Category.findAll().then(categories=>{
+            res.render("admin/articles/page", {result:result, categories: categories})
+        });
+    });
+});
+
    module.exports= router;
