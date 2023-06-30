@@ -98,8 +98,10 @@ router.get("/articles/page/:num", (req, res)=>{
 
     Article.findAndCountAll({//traz todos os elementos da tabela e a quantidade/contagem
         limit:4, //limite de dados que eu quero receber
-        offset: offset
-        
+        offset: offset,
+        order:[
+            ['id', 'DESC']
+        ],
     }).then(articles => {
     //verificar se há mais páginas para serem mostradas; qdo chega na última aparece false
         var next;
