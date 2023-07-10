@@ -2,10 +2,14 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const connection = require("./database/database");
+
 const categoriesController = require("./categories/CategoriesController");
 const articlesController = require("./articles/ArticlesController");
+const usersController = require("./users/UserController");
+
 const Article = require("./articles/Article");
 const Category = require("./categories/Category");
+const User = require("./users/User");
 
 //view engine
 app.set('view engine', 'ejs');
@@ -17,6 +21,11 @@ app.use(bodyParser.json());
 //static
 app.use(express.static("public"));
 
+//Utilizando as rotas criadas no controller
+app.use("/", categoriesController);
+app.use("/", articlesController);
+app.use("/", usersController)
+
 //Database:
 connection
     .authenticate()
@@ -25,10 +34,6 @@ connection
     }).catch((error)=>{
         console.log(error);
     });
-
-//Utilizando as rotas criadas no controller
-app.use("/", categoriesController);
-app.use("/", articlesController);
 
 
 app.get("/", (req, res)=>{
