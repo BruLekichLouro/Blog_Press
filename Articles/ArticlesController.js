@@ -90,10 +90,10 @@ router.get("/articles/page/:num", (req, res)=>{
     var page = req.params.num;
     var offset = 0;
 
-    if(isNaN(page) || page ==1){ //se pág não for núm ou for =1
-        offset=0; //pra exibir a partir do primeiro elemento
+    if(isNaN(page) || page == 1){ //se pág não for núm ou for =1
+        offset = 0; //pra exibir a partir do primeiro elemento
     }else{
-        offset = parseInt(page)*4;
+        offset = (parseInt(page) -1) *4;
     }
 
     Article.findAndCountAll({//traz todos os elementos da tabela e a quantidade/contagem
