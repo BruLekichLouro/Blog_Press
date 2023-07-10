@@ -1,1 +1,23 @@
-<h1> Página de login</h1>
+<%- include('../../partials/header.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+
+<div class="container">
+    
+    <div class="card form-control mt-5"> 
+        <div class="card-header ">
+           <h2>Criação de usuários:</h2> 
+        </div>
+        <div class="card-body">
+            <form>
+                <input class="form-control" name="email" type="email" placeholder="example@email.com">
+                <br>
+                <input name="password" type="password" class="form-control" placeholder="******">
+                <br>
+                <button type="submit" class="btn btn-success btn-block">Criar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../../partials/footer.ejs')%>
