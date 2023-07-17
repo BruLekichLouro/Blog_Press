@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const connection = require("./database/database");
+const session = require('express-session');
 
 const categoriesController = require("./categories/CategoriesController");
 const articlesController = require("./articles/ArticlesController");
@@ -24,7 +25,12 @@ app.use(express.static("public"));
 //Utilizando as rotas criadas no controller
 app.use("/", categoriesController);
 app.use("/", articlesController);
-app.use("/", usersController)
+app.use("/", usersController);
+
+//Session:
+app.use(session({
+    secret:"palavradeseguranca"//texto aleatório para aumentar a segurança das sessões, como o sal do bcrypt
+}))
 
 //Database:
 connection
