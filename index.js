@@ -29,8 +29,12 @@ app.use("/", usersController);
 
 //Session:
 app.use(session({
-    secret:"palavradeseguranca"//texto aleatório para aumentar a segurança das sessões, como o sal do bcrypt
+    //secret: texto aleatório para aumentar a segurança das sessões, como o sal do bcrypt
+    secret:"jkfjlfldkflkdf", cookie:{ maxAge: 30000000}
 }))
+
+
+
 
 //Database:
 connection

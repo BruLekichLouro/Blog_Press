@@ -40,4 +40,34 @@ router.post("/users/create", (req, res)=>{
     })
 });
 
+//Rota pág de login
+router.get("/login", (req, res) => {
+    res.render("admin/users/login")
+});
+
+//Rota para login
+router.post("/authenticate", (req, res)=>{
+    var email = req.body.email;
+    var password = req.body.password;
+
+    User.findOne({where: {email:email}}).then(user =>{
+        if(user != undefined){
+            //Se exite usuário com este email, vou validar a senha comparando a password digitada hasheada(na pág de login)  com a hasheada salva no BD
+            var correct = bcrypt.compareSync(password, user.password);
+
+            if(correct){ //criar sessão chamada user que só tem acesso quem faz login:
+                req.session.user={
+                    id:user.id,
+                    email:user.email
+                }
+                res.json(req.session.user)
+            }else{
+                res.redirect("/login");
+            }
+        }else{
+            res.redirect("/login");
+        }
+    })
+})
+
 module.exports= router;
